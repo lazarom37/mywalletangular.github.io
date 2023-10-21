@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
+  login() {
     if (this.email == ''){
       alert ('Please enter email');
       return;
@@ -33,6 +33,13 @@ export class LoginComponent implements OnInit {
     this.email = '';
     this.password = '';
 
+  }
+
+  /**
+   * Firebase: The given sign-in provider is disabled for this Firebase project. Enable it in the Firebase console, under the sign-in method tab of the Auth section. (auth/operation-not-allowed)
+   */
+  loginWithGoogle() {
+    this.auth.googleSignIn();
   }
 
 }

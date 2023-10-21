@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth} from '@angular/fire/compat/auth';
+import { GoogleAuthProvider } from '@angular/fire/auth'
 import { Router } from '@angular/router';
 
 
@@ -33,14 +34,25 @@ export class AuthService {
     })
   }
 
-    //sign out
-    logout (){
-      this.fireauth.signOut().then(() => {
-        localStorage.removeItem('token');
-        this.router.navigate(['/login']);
-      },err => {
-        alert(err.message);
-      })
-    }
+  //sign out
+  logout (){
+    this.fireauth.signOut().then(() => {
+      localStorage.removeItem('token');
+      this.router.navigate(['/login']);
+    },err => {
+      alert(err.message);
+    })
+  }
 
+  //sign in with google
+  googleSignIn() {
+    return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
+
+      localStorage.setItem('token', JSON.stringify(res.user?.uid));
+      this.router.navigate(['/dashboard']);
+
+    }, err => {
+      alert(err.message);
+    })
+  }
 }
