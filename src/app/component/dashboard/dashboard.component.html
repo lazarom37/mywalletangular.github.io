@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MyWallet Bank</title>
+    <style>
+        body, html {
+            height: 100%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>MyWallet</h1>
+    </header>
+
+    <nav>
+        <a href="/dashboard">Home</a>
+        <a href="/earnings">Earnings & Spendings</a>
+        <a href="/recurring">Recurring Finance</a>
+        <a href="/reports">Reports</a>
+        <a href="/about">About Us</a>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <div id="home" class="container">
+        <h2>Secure Banking Solutions Tailored For You</h2>
+        <p>
+            At MyWallet, blah blah blah blah blah blah.
+        </p>
+    </div>
+
+    <!-- Login Form Section -->
+    <div id="login" class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="col-4">
+                    <div class="card-shadow">
+                        <div class="card-body">
+                             <form>
+                            <div class="mb-3">
+                                <h4 class = "text-dark text-muted">Login</h4>
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">Email address</label>
+                              <input type="email" class="form-control" name = "email" [(ngModel)] = "email">
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleInputPassword1" class="form-label">Password</label>
+                              <input type="password" class="form-control" name = "password" [(ngModel)] = "password">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-info" (click)= "login()">Login</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-info" (click)= "loginWithGoogle()">Login with Google</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="/register" style = "text-decoration: none;">Need Account ? <span class = "text-danger">Register</span></a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="" class = "text-dark" style = "text-decoration: none;">Forgot Password ?</a>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="homeImage" class="container">
+        <h2>Insert Info</h2>
+        <p>
+            Insert Info and maybe a logo.
+        </p>
+        <!-- Add your earnings and spendings content here -->
+    </div>
+
+
+    <footer>
+        <p>&copy; 2023 MyWallet. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
+
+<script>
+    // Assume this variable keeps track of user's login status (true if logged in, false otherwise)
+    var isLoggedIn = false;
+
+    // Get all navigation links with class "nav-link"
+    var navLinks = document.querySelectorAll('.nav-link');
+
+    // Add click event listeners to each navigation link
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Prevent the default behavior (navigation) if user is not logged in
+            if (!isLoggedIn) {
+                event.preventDefault();
+                alert('Please log in to access this page.');
+                // You can redirect the user to the login page here if needed
+                // window.location.href = '/login'; // Example redirect to the login page
+            }
+        });
+    });
+</script>
+
