@@ -12,13 +12,17 @@ import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
+import { ForgotpasswordComponent } from './component/forgotpassword/forgotpassword.component';
+import { VerifyemailComponent } from './component/verifyemail/verifyemail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ForgotpasswordComponent,
+    VerifyemailComponent
   ],
   imports: [
     BrowserModule,
