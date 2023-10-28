@@ -35,4 +35,9 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  registerWithGoogle() {
+    this.auth.googleSignUp().then(() => {
+      alert("Registration has been successfully completed");
+    });
+  }
 }

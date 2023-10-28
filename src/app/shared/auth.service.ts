@@ -83,4 +83,17 @@ export class AuthService {
       alert(err.message);
     })
   }
+
+  googleSignUp() {
+    return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
+
+      localStorage.setItem('token', JSON.stringify(res.user?.uid));
+      localStorage.setItem('email', JSON.stringify(res.user?.email));
+      localStorage.setItem('displayName', JSON.stringify(res.user?.displayName));
+      this.router.navigate(['/dashboard']);
+
+    }, err => {
+      alert(err.message);
+    })
+  }
 }
