@@ -22,6 +22,7 @@
     "@angular/router": "^14.2.0",
     "@ngneat/until-destroy": "^10.0.0",
     "firebase-tools": "^12.7.0",
+    "ngx-currency": "^3.0.0",
     "rxfire": "=6.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
