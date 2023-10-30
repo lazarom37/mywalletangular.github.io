@@ -1,0 +1,50 @@
+
+ .btn-info {
+    background-color: #9fa9a3;
+    border: solid #9caaa3;
+} 
+.btn-info :focus {
+    background-color: #9fa9a3;
+}
+
+/* .col-6 {
+    background-color: red;
+} */
+
+/* .row {
+    display: flex;
+    background-color: #d9ecd0;
+    margin-top: 150px;
+} */
+
+/* .col-12 {
+    background-color: #d9ecd0;
+    padding-top: 100px;
+    margin: 100px;;
+} */
+
+/* .container-fluid {
+    background-color: #d9ecd0;
+    margin: 0px;
+    height: 130%;
+
+}  */
+
+.row {
+    height: auto;
+    color: #3a1717;
+}
+
+/* .col-6 {
+    background-color: green;
+} */
+
+/* .mb-3 {
+    background-color: blueviolet;
+}  */
+
+.text {
+    color: #723e3e;
+   
+}
+ 

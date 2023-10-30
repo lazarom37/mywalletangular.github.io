@@ -1,0 +1,43 @@
+<div class = "container-fluid">
+    <div class="row">
+        <div class="col-md-4 mt-5">
+            <div class="card border-0 shadow p-3">
+                <div class="form-floating mb-3 text-center">
+                    <h5 class = "text-center text-warning">Add Earnings</h5>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="earningPaymentAmount" class="form-control" id="earningPaymentAmount" name="earningPaymentAmount" [(ngModel)] = "earningPaymentAmount">
+                    <label for="earningPaymentAmount">Amount:</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="earningPaymentDesc" class="form-control" id="earningPaymentDesc" name="earningPaymentDesc" [(ngModel)] = "earningPaymentDesc">
+                    <label for="earningPaymentDesc">Description</label>
+                  </div>
+                  <button type="button" class="btn btn-outline-success" (click)="addEarningMoney()">Add Earning</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8 mt-2">
+            <h5 class = "text-danger">Earnings List</h5>
+            <div class="card p-3">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let earningMoney of earningMoneyList">
+                            <td>{{earningMoney.earningPaymentAmount}}</td>
+                            <td>{{earningMoney.earningPaymentDesc}}</td>
+                            <td><button type="button" class="btn btn-outline-danger" (click)="deleteEarningMoney(earningMoney)">Delete</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+    </div>
