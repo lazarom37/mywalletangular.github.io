@@ -9,6 +9,8 @@ import { RecurringPaymentsAndEarningsComponent } from './component/recurring_pay
 import { ReportsComponent } from './component/reports/reports.component'
 import { ForgotpasswordComponent } from './component/forgotpassword/forgotpassword.component';
 import { VerifyemailComponent } from './component/verifyemail/verifyemail.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { LogoutComponent } from './component/logout/logout.component';
 
 const routes: Routes = [
 
@@ -20,8 +22,10 @@ const routes: Routes = [
   {path: 'recurrent_payments_earnings', component: RecurringPaymentsAndEarningsComponent},
   {path: 'reports', component: ReportsComponent},
   {path: 'about', component: AboutComponent},
-  {path:'forgotpassword', component: ForgotpasswordComponent},
-  {path:'verifyemail', component: VerifyemailComponent}
+  {path: 'forgotpassword', component: ForgotpasswordComponent},
+  {path: 'verifyemail', component: VerifyemailComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'logout', component: LogoutComponent}
 ];
 
 @NgModule({

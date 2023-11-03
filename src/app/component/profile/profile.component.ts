@@ -3,11 +3,11 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   constructor(private auth: AuthService, private router : Router) { }
 
@@ -17,6 +17,5 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  currencyInput: number = 0;
-  
+
 }

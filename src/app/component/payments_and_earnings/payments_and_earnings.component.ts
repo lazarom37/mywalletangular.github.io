@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Payment } from 'src/app/component/payments_and_earnings/payment';
 import { EarningMoney } from 'src/app/model/earning-money';
 import { DataService } from 'src/app/shared/data.service';
+import { AuthService } from 'src/app/shared/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-payments-and-earnings',
@@ -22,10 +25,14 @@ export class PaymentsAndEarningComponent implements OnInit {
   earningPaymentDesc: string= '';
   earningPaymentAmount: number= 0;
   
-  constructor(private data: DataService ) { }
+  constructor(private data: DataService, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllEarningMoney();
+    if (!this.auth.checkUserLogin()) {
+      this.router.navigate(['login']);
+    } else {
+      this.getAllEarningMoney();
+    }
   }
 
   getAllEarningMoney() {

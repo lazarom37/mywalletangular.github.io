@@ -13,19 +13,15 @@ export class AuthService {
 
   //login 
   login (email : string, password : string ){
-    this.fireauth.signInWithEmailAndPassword(email,password).then( res => {
-      localStorage.setItem('token','true');
-      // this.router.navigate(['/dashboard']);
-      this.router.navigate(['dashboard']);
-
-
+    this.fireauth.signInWithEmailAndPassword(email, password).then(res => {
+      localStorage.setItem('userProfile', JSON.stringify(res));
+      localStorage.setItem('userID', JSON.stringify(res.user?.uid));
+      
       if(res.user?.emailVerified == true) {
         this.router.navigate(['dashboard']);
       } else {
         this.router.navigate(['verifyemail'])
       }
-
-
     },err => {
       alert(err.message);
       this.router.navigate(['/login']);
@@ -75,8 +71,8 @@ export class AuthService {
   //sign in with google
   googleSignIn() {
     return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
-
-      localStorage.setItem('token', JSON.stringify(res.user?.uid));
+      localStorage.setItem('userProfile', JSON.stringify(res));
+      localStorage.setItem('userID', JSON.stringify(res.user?.uid));
       this.router.navigate(['/dashboard']);
 
     }, err => {
@@ -84,16 +80,10 @@ export class AuthService {
     })
   }
 
-  googleSignUp() {
-    return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
-
-      localStorage.setItem('token', JSON.stringify(res.user?.uid));
-      localStorage.setItem('email', JSON.stringify(res.user?.email));
-      localStorage.setItem('displayName', JSON.stringify(res.user?.displayName));
-      this.router.navigate(['/dashboard']);
-
-    }, err => {
-      alert(err.message);
-    })
+  checkUserLogin() {
+    if (localStorage.getItem('userID') == null) {
+      return false;
+    }
+    return true;
   }
 }
