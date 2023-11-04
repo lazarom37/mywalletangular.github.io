@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth} from '@angular/fire/compat/auth';
-import { GoogleAuthProvider } from '@angular/fire/auth'
+import { GoogleAuthProvider, UserCredential } from '@angular/fire/auth'
 import { Router } from '@angular/router';
 
 
@@ -29,17 +29,28 @@ export class AuthService {
   }
 
   //register method
-  register(email: string, password: string){
-    this.fireauth.createUserWithEmailAndPassword(email,password).then( res => {
-      alert('Registeration Successful');
-      this.router.navigate(['/login']);
+  register(email: string, password: string, firstName: string, lastName: string) {
+    this.fireauth.createUserWithEmailAndPassword(email, password).then(res => {
+      localStorage.setItem('userProfile', JSON.stringify(res));
+      localStorage.setItem('userID', JSON.stringify(res.user?.uid));
+
+      this.updateProfileOnRegister(firstName, lastName);
+
       this.sendEmailForVerification(res.user);
+      this.router.navigate(['verifyemail']);
     },err => {
       alert(err.message);
-      this.router.navigate(['/register']);
+      this.router.navigate(['register']);
     })
   }
 
+  async updateProfileOnRegister(firstName: string, lastName: string) {
+    const currentUser = await this.fireauth.currentUser;
+    currentUser?.updateProfile({
+      displayName: firstName + " " + lastName
+    });
+  }
+  
   //sign out
   logout (){
     this.fireauth.signOut().then(() => {
@@ -74,7 +85,6 @@ export class AuthService {
       localStorage.setItem('userProfile', JSON.stringify(res));
       localStorage.setItem('userID', JSON.stringify(res.user?.uid));
       this.router.navigate(['/dashboard']);
-
     }, err => {
       alert(err.message);
     })
