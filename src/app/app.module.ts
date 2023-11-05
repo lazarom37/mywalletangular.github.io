@@ -24,6 +24,7 @@ import { AboutComponent } from './component/about/about.component';
 import { ReportsComponent } from './component/reports/reports.component';
 import { PaymentsAndEarningComponent } from './component/payments_and_earnings/payments_and_earnings.component';
 import { RecurringPaymentsAndEarningsComponent } from './component/recurring_payments_and_earnings/recurring_payments_and_earnings.component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RecurringPaymentsAndEarningsComponent } from './component/recurring_pay
     PaymentsAndEarningComponent,
     RecurringPaymentsAndEarningsComponent,
     ReportsComponent,
-    AboutComponent
+    AboutComponent,
+    ProfileComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth} from '@angular/fire/compat/auth';
-import { GoogleAuthProvider, UserCredential } from '@angular/fire/auth'
+import { GoogleAuthProvider, User } from '@angular/fire/auth'
 import { Router } from '@angular/router';
 
 
