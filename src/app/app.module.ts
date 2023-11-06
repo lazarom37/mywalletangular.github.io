@@ -25,6 +25,9 @@ import { ReportsComponent } from './component/reports/reports.component';
 import { PaymentsAndEarningComponent } from './component/payments_and_earnings/payments_and_earnings.component';
 import { RecurringPaymentsAndEarningsComponent } from './component/recurring_payments_and_earnings/recurring_payments_and_earnings.component';
 import { ProfileComponent } from './component/profile/profile.component';
+import { MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { ProfileComponent } from './component/profile/profile.component';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatSortModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
@@ -59,3 +65,4 @@ import { ProfileComponent } from './component/profile/profile.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
