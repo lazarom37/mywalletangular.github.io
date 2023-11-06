@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Add Earnings Form -->
+    <div class="col-md-3 mt-4">
+      <div class="card border-0 shadow p-3">
+        <h5 class="text-center text-warning mb-3">Add Earnings</h5>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="earningPaymentAmount" name="earningPaymentAmount" [(ngModel)]="earningPaymentAmount">
+          <label for="earningPaymentAmount">Amount:</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="earningPaymentDesc" name="earningPaymentDesc" [(ngModel)]="earningPaymentDesc">
+          <label for="earningPaymentDesc">Description</label>
+        </div>
+        <button type="button" class="btn btn-outline-success" (click)="addEarningMoney()">Add Earning</button>
+      </div>
+    </div>
+
+    <!-- Add Payments Form -->
+    <div class="col-md-3 mt-4">
+      <div class="card border-0 shadow p-3">
+        <h5 class="text-center text-warning mb-3">Add Payments</h5>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="payingMoneyAmount" name="payingMoneyAmount" [(ngModel)]="payingMoneyAmount">
+          <label for="payingMoneyAmount">Amount:</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="payingMoneyDesc" name="payingMoneyDesc" [(ngModel)]="payingMoneyDesc">
+          <label for="payingMoneyDesc">Description</label>
+        </div>
+        <button type="button" class="btn btn-outline-success" (click)="addPayingMoney()">Add Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings List -->
+  <div class="row">
+    <div class="col-md-3 mt-4">
+      <h5 class="text-danger">Earnings List</h5>
+      <div class="card p-3">
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Amount</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let earningMoney of earningMoneyList">
+                <td>{{ earningMoney.earningPaymentAmount }}</td>
+                <td>{{ earningMoney.earningPaymentDesc }}</td>
+                <td><button type="button" class="btn btn-outline-danger" (click)="deleteEarningMoney(earningMoney)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payments List -->
+    <div class="col-md-3 mt-4">
+      <h5 class="text-danger">Payments List</h5>
+      <div class="card p-3">
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Amount</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payingMoney of payingMoneyList">
+                <td>{{ payingMoney.payingMoneyAmount }}</td>
+                <td>{{ payingMoney.payingMoneyDesc }}</td>
+                <td><button type="button" class="btn btn-outline-danger" (click)="deletePayingMoney(payingMoney)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Panel -->
+    <div class="col-md-2 mt-3">
+      <h5 class="text-danger">History</h5>
+      <div class="card p-1">
+        <div class="card-body">
+          <mat-form-field>
+            <mat-select>
+              <mat-option *ngFor="let userPayingDescArray of userPayingDescArrays" [value]="userPayingDescArray">{{ userPayingDescArray }}</mat-option>
+              <mat-option *ngFor="let userEarningDescArray of userEarningDescArrays" [value]="userEarningDescArray">{{ userEarningDescArray }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

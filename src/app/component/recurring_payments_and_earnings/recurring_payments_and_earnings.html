@@ -1,0 +1,13 @@
+<div class="col-md-2 mt-3">
+    <h5 class="text-danger">History</h5>
+    <div class="card p-1">
+        <div class="card-body">
+            <mat-form-field>
+                <mat-select>
+                    <mat-option *ngFor= "let userPayingDescArray of userPayingDescArrays"[value]="userPayingDescArray">{{userPayingDescArray}}</mat-option>
+                    <mat-option *ngFor= "let userEarningDescArray of userEarningDescArrays"[value]="userEarningDescArray">{{userEarningDescArray}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
