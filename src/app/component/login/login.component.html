@@ -8,7 +8,7 @@
                     <div class="card-body"> 
                         <form>
                             <div class="mb-3">
-                                <h4 class = "text-dark text-muted">Login</h4>
+                                <h4 class = "text-dark text-muted" id="login">Login</h4>
                             </div>
                             <div class="mb-3">
                               <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -20,10 +20,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-info" (click)= "login()">Login</button>
+                                    <button type="button" class="btn" (click)= "login()">Login</button>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-info" (click)= "loginWithGoogle()">Login with Google</button>
+                                    <button type="button" class="btn" (click)= "loginWithGoogle()">Login with Google</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -31,7 +31,7 @@
                                     <a href="/register" class="text" style = "text-decoration: none;">Need Account? Register!</a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/forgotpassword" class = "text-dark" style = "text-decoration: none;">Forgot Password ?</a>
+                                    <a href="/forgotpassword" class = "text" style = "text-decoration: none;">Forgot Password ?</a>
                                 </div>
                             </div>
                         </form>

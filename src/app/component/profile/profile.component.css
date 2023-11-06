@@ -6,7 +6,7 @@
     height: 500px;
 }
 
-.btn-info {
+.btn {
     background-color: #c5d5c5;
     border: solid rgb(204, 220, 204) 2px;
     margin: 0;
@@ -18,14 +18,14 @@
 
 }
 
-#register {
-    margin: 0;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  
+#profile {
+  margin: 0;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
 }
 
 a:link {
