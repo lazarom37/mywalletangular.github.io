@@ -28,6 +28,7 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSortModule} from '@angular/material/sort';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatDialogModule,
     MatSelectModule,
     MatSortModule,
+    DragDropModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
@@ -65,4 +67,3 @@ import {MatSortModule} from '@angular/material/sort';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

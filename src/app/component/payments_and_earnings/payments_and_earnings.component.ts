@@ -10,6 +10,7 @@ import { ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {AngularFirestore} from '@angular/fire/compat/firestore'
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-payments-and-earnings',
@@ -168,8 +169,8 @@ export class PaymentsAndEarningComponent implements OnInit {
     // this.addPayingMoney(payingMoney);
   }
 
-
+  drop(event: CdkDragDrop<PayingMoney[]>) {
+    
+  }
 }
-
-
 
