@@ -66,22 +66,25 @@ export class DataService {
     }
   }
 
-  //deleteEarningMoney
-  deleteEarningMoney(earningMoney: EarningMoney) {
-  return this.afs.doc('/EarningMoney/'+ earningMoney.earningPaymentId).delete()
-    .then(() => {
-      console.log('Earning Money deleted successfully');
-    })
-    .catch(error => {
-      console.error('Error deleting Earning Money:', error);
-    });
-  }
-
-  //deletePayingMoney
-  deletePayingMoney(payingMoney: PayingMoney) {
-    return this.afs.doc('/PayingMoney/'+ payingMoney.payingMoneyId).delete()
+    // deleteEarningMoney
+    deleteEarningMoney(earningMoney: EarningMoney) {
+      return this.afs.doc(`/EarningMoney/${earningMoney.earningPaymentId}`).delete()
+        .then(() => {
+          console.log('Earning Money deleted successfully');
+        })
         .catch(error => {
-            console.error('Error deleting Paying Money:', error);
+          console.error('Error deleting Earning Money:', error);
+        });
+    }
+
+    // deletePayingMoney
+    deletePayingMoney(payingMoney: PayingMoney) {
+      return this.afs.doc(`/PayingMoney/${payingMoney.payingMoneyId}`).delete()
+        .then(() => {
+          console.log('Paying Money deleted successfully');
+        })
+        .catch(error => {
+          console.error('Error deleting Paying Money:', error);
         });
     }
   
