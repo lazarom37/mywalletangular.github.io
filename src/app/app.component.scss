@@ -9,7 +9,7 @@ mat-sidenav {
     margin-top: 8px;
     margin-bottom: 8px;
     width: 350px;
-    height: calc(100vh - 146px);
+    height: calc(97vh - 146px);
     border-right: none;
     background: #9fa9a3;
     color: white;
@@ -20,9 +20,9 @@ mat-sidenav {
 
 .content {
     background-color: #c5d5c5;
-    height: calc(100vh - 146px);
+    height: calc(97vh - 146px);
     border-radius: 10px;
-    margin-left: 16px;
+    margin-left: 25px;
     margin-right: 16px;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -32,7 +32,7 @@ mat-sidenav {
 }
 
 mat-sidenav-container {
-    height: calc(100vh - 130px);
+    height: calc(97vh - 130px);
     
 }
 
@@ -78,19 +78,22 @@ mat-divider {
     margin-left: 16px;
     margin-right: 16px;
     border-radius: 10px;
-    height: 60px;
+    height: 90px;
     padding: 10px;
     background-color: #f0f0f0;
     color: rgb(105, 79, 79);
     font-size: large;
     text-align: center;
+    height: auto;
+    
 }
 
 .header {
     margin-left: 16px;
     margin-right: 16px;
+    margin-top: 10px;
     border-radius: 10px;
-    height: 70px;
+    height: 100px;
     padding: 10px;
     background-color: #e3e0cc;
     color: rgb(105, 79, 79);

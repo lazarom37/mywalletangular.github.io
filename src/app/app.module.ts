@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,40 +23,58 @@ import { ForgotpasswordComponent } from './component/forgotpassword/forgotpasswo
 import { VerifyemailComponent } from './component/verifyemail/verifyemail.component';
 import { AboutComponent } from './component/about/about.component';
 import { ReportsComponent } from './component/reports/reports.component';
-import { PaymentsAndEarningComponent } from './component/payments_and_earnings/payments_and_earnings.component';
-import { RecurringPaymentsAndEarningsComponent } from './component/recurring_payments_and_earnings/recurring_payments_and_earnings.component';
+import { PaymentsComponent } from './component/payments/payments.component';
+import { EarningsComponent } from './component/earnings/earnings.component';
 import { ProfileComponent } from './component/profile/profile.component';
+import { BalanceComponent } from './component/balance/balance.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
+    BalanceComponent,
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
     ForgotpasswordComponent,
     VerifyemailComponent,
-    PaymentsAndEarningComponent,
-    RecurringPaymentsAndEarningsComponent,
+    PaymentsComponent,
+    EarningsComponent,
     ReportsComponent,
     AboutComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
     BrowserModule,
+    CdkTableModule,
     FormsModule,
+    MatGridListModule,
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    MatInputModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatFormFieldModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

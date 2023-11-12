@@ -1,0 +1,25 @@
+<div class="add_earning_modal">
+  <h1 mat-dialog-title>Add new earning</h1>
+  <div mat-dialog-content>
+    <form class="add_earning_form">
+      <mat-label>Name</mat-label><br>
+      <mat-form-field>
+        <input matInput placeholder="" [(ngModel)]="data.name" />
+      </mat-form-field><br>
+      <mat-label>Amount</mat-label><br>
+      <mat-form-field>
+        <input matInput type="number" placeholder="0" [(ngModel)]="data.amount" />
+      </mat-form-field><br>
+      <mat-label>Recurrence</mat-label><br>
+      <mat-form-field>
+        <mat-label>Select recurrence</mat-label>
+        <mat-select [(ngModel)]="data.recurrence">
+        </mat-select>
+      </mat-form-field><br>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>No</button>
+    <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+  </div>
+</div>
