@@ -3,9 +3,8 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
 import { EarningTableEntry } from 'src/app/model/earning-table-entry';
 import { Recurrence, RecurrenceType } from 'src/app/model/recurrence';
-
+import { CommonModule } from '@angular/common';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import {NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
@@ -17,23 +16,53 @@ export interface MatGridListTile {
   content: string;
 }
 
+function dateToString(d: Date): string {
+  var year = d.getFullYear().toString();
+  var month = (d.getMonth() + 1).toString().padStart(2, "0");
+  var day = d.getDate().toString().padStart(2, "0");
+  var hour = d.getHours().toString().padStart(2, "0");
+  var minute = d.getMinutes().toString().padStart(2, "0");
+  return `${year}-${month}-${day} ${hour}:${minute}`;
+}
+
 function recurrenceToString(rec: Recurrence): string {
+  var result = "";
   if (rec.recurrenceType == RecurrenceType.OneOff) {
-    return "One off on " + rec.beginDate.toLocaleDateString();
+    result =  "One off on " + dateToString(rec.beginDate);
+  } else if (rec.recurrenceType == RecurrenceType.Daily) {
+    result = "Daily from " + dateToString(rec.beginDate);
+  } else if (rec.recurrenceType == RecurrenceType.Weekly) {
+    result = "Weekly from " + dateToString(rec.beginDate);
+  } else if (rec.recurrenceType == RecurrenceType.Monthly) {
+    result = "Monthly from " + dateToString(rec.beginDate);
+  } else if (rec.recurrenceType == RecurrenceType.Annually) {
+    result = "Annualy from " + dateToString(rec.beginDate);
+  } else {
+    return "Unknown";
   }
-  if (rec.recurrenceType == RecurrenceType.Daily) {
-    return "Daily from " + rec.beginDate.toLocaleDateString();
+  if (rec.endDate != null) {
+    result += " to " + dateToString(rec.endDate);
   }
-  if (rec.recurrenceType == RecurrenceType.Weekly) {
-    return "Weekly from " + rec.beginDate.toLocaleDateString();
+return result;
+}
+
+function stringToRecurrenceType(rec: string): RecurrenceType {
+  if (rec == "oneoff") {
+    return RecurrenceType.OneOff;
   }
-  if (rec.recurrenceType == RecurrenceType.Monthly) {
-    return "Monthly from " + rec.beginDate.toLocaleDateString();
+  if (rec == "daily") {
+    return RecurrenceType.Daily;
   }
-  if (rec.recurrenceType == RecurrenceType.Annually) {
-    return "Annualy from " + rec.beginDate.toLocaleDateString();
+  if (rec == "weekly") {
+    return RecurrenceType.Weekly;
   }
-  return "Unknown";
+  if (rec == "monthly") {
+    return RecurrenceType.Monthly;
+  }
+  if (rec == "annually") {
+    return RecurrenceType.Annually;
+  }
+  throw new Error("Unknown recurrence string: " + rec);
 }
 
 @Component({
@@ -80,12 +109,58 @@ export class EarningsComponent implements OnInit {
 
   onAddNewEarning(): void {
     const modalWindow = this.dialog.open(AddEarningModal, {
-      data: { name: "booo", amount: 0 },
-      height: "400px",
+      data: { name: null, amount: null, recurrence: null, beginDate: null },
+      height: "450px",
       width: "600px",
     });
     modalWindow.afterClosed().subscribe(result => {
-      console.log(JSON.stringify(result));
+      if (!modalWindow.componentInstance.modalResult) {
+        return;
+      }
+      const earningName = modalWindow.componentInstance.data.name;
+      const earningAmount = modalWindow.componentInstance.data.amount;
+      const earningRecurrence = modalWindow.componentInstance.data.recurrence;
+      const earningBeginDate = new Date(modalWindow.componentInstance.data.beginDate);
+      if (earningName == null || earningAmount == null || earningAmount < 0 || earningRecurrence == null || earningBeginDate == null) {
+        alert("Failed to add a new earning. Please, fill all fields in the form.");
+        window.setTimeout(() => { this.onAddNewEarning() }, 100);
+      }
+
+      this.earnings.push({
+        name: earningName,
+        amount: earningAmount,
+        recurrence: {
+          recurrenceType: stringToRecurrenceType(earningRecurrence),
+          beginDate: earningBeginDate
+        }
+      });
+      this.updateMatGridList();
+    });
+  }
+
+  onDeleteEarning(): void {
+    const names = new Array<String>();
+    this.earnings.forEach(earning => {
+      names.push(earning.name);
+    });
+    const modalWindow = this.dialog.open(DeleteEarningModal, {
+      data: { earningNames: names, chosenName: "" },
+      height: "450px",
+      width: "600px",
+    });
+    modalWindow.afterClosed().subscribe(result => {
+      if (!modalWindow.componentInstance.modalResult) {
+        return;
+      }
+      const chosenName = modalWindow.componentInstance.data.chosenName;
+      var modifiedEarnings = new Array<EarningTableEntry>();
+      this.earnings.forEach(e => {
+        if (e.name != chosenName) {
+          modifiedEarnings.push(e)
+        }
+      });
+      this.earnings = modifiedEarnings;
+      this.updateMatGridList();
     });
   }
 
@@ -97,7 +172,7 @@ export interface AddEarningModalData {
   name: string;
   amount: number;
   recurrence: string;
-  beginDate: string;
+  beginDate: Date;
 };
 
 @Component({
@@ -109,12 +184,54 @@ export interface AddEarningModalData {
 })
 export class AddEarningModal {
 
+  modalResult: boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<AddEarningModal>,
-    @Inject(MAT_DIALOG_DATA) public data: AddEarningModalData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
+    @Inject(MAT_DIALOG_DATA) public data: AddEarningModalData
+  ) {
   }
 
+  onAddClick(): void {
+    console.log("onAddClick");
+    this.modalResult = true;
+  }
+
+  onCancelClick(): void {
+    console.log("onCancelClick");
+    this.modalResult = false;
+  }
+}
+
+export interface DeleteEarningModalData {
+  earningNames: Array<String>;
+  chosenName: string;
+};
+
+@Component({
+  selector: 'modal-delete-earning',
+  templateUrl: './modalDeleteEarning.html',
+  styleUrls: ['./modalDeleteEarning.css'],
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+})
+export class DeleteEarningModal {
+
+  modalResult: boolean = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteEarningModal>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteEarningModalData
+  ) {
+  }
+
+  onDeleteClick(): void {
+    console.log("onDeleteClick");
+    this.modalResult = true;
+  }
+
+  onCancelClick(): void {
+    console.log("onCancelClick");
+    this.modalResult = false;
+  }
 }

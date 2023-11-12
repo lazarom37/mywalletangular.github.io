@@ -15,5 +15,5 @@ export class BalanceComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  currentBalance: number = 10000.0;
+  currentBalance: number = 0;
 }

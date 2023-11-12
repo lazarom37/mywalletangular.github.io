@@ -4,7 +4,9 @@
     <button class="btn mr-3" (click)="this.onAddNewEarning()">
       Add new earning
     </button>
-    <button class="btn mr-3">Delete existing earning</button>
+    <button class="btn mr-3" (click)="this.onDeleteEarning()">
+      Delete existing earning
+    </button>
 </div>
 <div class="list_container">
   <mat-grid-list cols="40" rowHeight="30px">
