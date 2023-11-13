@@ -104,14 +104,6 @@ export class PaymentsAndEarningComponent implements OnInit {
     // this.addEarningMoney(earningMoney);
   }
 
-
-  // deleteEarningMoney(earningMoney: EarningMoney) {
-  //   if (window.confirm('Are sure you want to delete '+ earningMoney.earningPaymentAmount+' from MyWallet?')) {
-  //     this.data.deleteEarningMoney(earningMoney);
-  //   }
-
-  // }
-
   deleteEarningMoney(earningMoney: EarningMoney) {
     if (window.confirm('Are sure you want to delete ' + earningMoney.earningPaymentAmount+' from MyWallet?')) {
       this.data.deleteEarningMoney(earningMoney)
