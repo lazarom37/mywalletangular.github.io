@@ -1,0 +1,43 @@
+<app-balance></app-balance>
+<h1>Earnings</h1>
+<div class="button-container">
+    <button class="btn mr-3" (click)="this.onAddNewEarning()">
+      Add new earning
+    </button>
+    <button class="btn mr-3" (click)="this.onDeleteEarning()">
+      Delete existing earning
+    </button>
+</div>
+
+<div class="list_container">
+  <mat-grid-list cols="40" rowHeight="30px">
+    <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [ngClass]="tile.cssClass"
+    >
+      {{tile.content}}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+
+<!-- <div class="list_container">
+<div *ngFor="let earning of earnings">
+  <div>Name: {{ earning.name }}</div>
+  <div>Amount: ${{ earning.amount }}</div>
+  <div>Recurrence:
+      <span *ngIf="earning.recurrence">
+        <span *ngIf="earning.recurrence.recurrenceType == RecurrenceType.OneOff">One off on {{ earning.recurrence.beginDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <span *ngIf="earning.recurrence.recurrenceType == RecurrenceType.Daily">Daily from {{ earning.recurrence.beginDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <span *ngIf="earning.recurrence.recurrenceType == RecurrenceType.Weekly">Weekly from {{ earning.recurrence.beginDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <span *ngIf="earning.recurrence.recurrenceType == RecurrenceType.Monthly">Monthly from {{ earning.recurrence.beginDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <span *ngIf="earning.recurrence.recurrenceType == RecurrenceType.Annually">Annually from {{ earning.recurrence.beginDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <span *ngIf="earning.recurrence.endDate"> to {{ earning.recurrence.endDate | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <span *ngIf="!earning.recurrence.recurrenceType">Unknown</span>
+      </span>
+  </div>
+</div> -->
+
+
+
