@@ -1,0 +1,51 @@
+/* Assuming main-styles.scss contains definitions for $green, $red, etc.
+   These need to be replaced with actual CSS values. */
+
+   .budget-items-section {
+    display: flex;
+    padding: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.budget-items-section .budget-items-container {
+    display: flex;
+    max-width: 680px;
+    height: 100%;
+    width: 100%;
+}
+
+.budget-items-section .budget-items-container .income-column, 
+.budget-items-section .budget-items-container .expenses-column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 0; /* for the columns to be the same size, regardless of content */
+    flex-grow: 1;
+}
+
+.budget-items-section .budget-items-container .income-column h1, 
+.budget-items-section .budget-items-container .expenses-column h1 {
+    font-family: 'Lato';
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.budget-items-section .budget-items-container .income-column .budget-items, 
+.budget-items-section .budget-items-container .expenses-column .budget-items {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.budget-items-section .budget-items-container .income-column {
+    margin-right: 35px;
+}
+
+.budget-items-section .budget-items-container .income-column h1 {
+    color: green;
+}
+
+.budget-items-section .budget-items-container .expenses-column h1 {
+    color: red;
+}
