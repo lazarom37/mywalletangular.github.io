@@ -1,6 +1,6 @@
 import { Recurrence } from "./recurrence";
 
-export interface EarningTableEntry {
+export interface PayingTableEntry {
   name: string;
   amount: number;
   recurrence: Recurrence;

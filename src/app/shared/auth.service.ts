@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth} from '@angular/fire/compat/auth';
-import { GoogleAuthProvider, User } from '@angular/fire/auth'
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import { GoogleAuthProvider, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-
+import { FinancesService } from './finances.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  currentUser: firebase.User | null = null;
 
-  constructor(private fireauth : AngularFireAuth, private router : Router) { }
+  constructor(private fireauth: AngularFireAuth, private router: Router, private financesService: FinancesService) {
+    this.fireauth.authState.subscribe(user => {
+      this.currentUser = user;
+      if (user) {
+        localStorage.setItem('userId', user.uid);
+      }
+    });
+  }
 
   //login 
   login (email : string, password : string ){
@@ -95,5 +105,10 @@ export class AuthService {
       return false;
     }
     return true;
+  }
+
+ // New method to get userId
+  getUserId(): string | null {
+    return this.currentUser ? this.currentUser.uid : null;
   }
 }

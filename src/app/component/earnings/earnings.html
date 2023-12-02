@@ -1,4 +1,7 @@
 <app-balance></app-balance>
+<div class="total-payments">
+  <p>Total Payments: + ${{ totalEarnings }}</p>
+</div>
 <h1>Earnings</h1>
 <div class="button-container">
     <button class="btn mr-3" (click)="this.onAddNewEarning()">
@@ -7,7 +10,11 @@
     <button class="btn mr-3" (click)="this.onDeleteEarning()">
       Delete existing earning
     </button>
+    <button class="btn mr-3" (click)="this.onAddNewEarning()">
+      Total
+    </button>
 </div>
+
 <div class="list_container">
   <mat-grid-list cols="40" rowHeight="30px">
     <mat-grid-tile

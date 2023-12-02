@@ -22,6 +22,7 @@
     "@angular/router": "^14.2.0",
     "@ngneat/until-destroy": "^10.0.0",
     "chart.js": "^3.9.1",
+    "@types/chart.js": "^2.9.35",
     "firebase-tools": "^12.7.0",
     "ngx-currency": "^3.0.0",
     "rxfire": "=6.0.3",

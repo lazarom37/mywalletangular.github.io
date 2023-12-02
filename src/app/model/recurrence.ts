@@ -1,9 +1,10 @@
 export enum RecurrenceType {
-  OneOff = 1,
-  Daily,
-  Weekly,
-  Monthly,
-  Annually
+OneOff=1,
+Daily,
+Weekly,
+Monthly,
+Annually,
+beginDate
 }
 
 export interface Recurrence {
