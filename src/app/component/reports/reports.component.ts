@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import Chart from 'chart.js/auto';
+import { EarningTableEntry } from 'src/app/model/earning-table-entry';
+import { PayingTableEntry } from 'src/app/model/paying-table-entry';
 
 @Component({
   selector: 'app-reports',
@@ -14,8 +17,14 @@ export class ReportsComponent implements OnInit {
   reportType: string = '0';
   year: string = '2023';
   yearMonth: string = '2023-01';
-  
-  constructor(private auth: AuthService, private router : Router) { }
+
+  annualEarnings: Map<string, Array<number>> = new Map();
+  annualSpendings: Map<string, Array<number>> = new Map();
+
+  monthlyEarnings: Map<string, Array<number>> = new Map();
+  monthlySpendings: Map<string, Array<number>> = new Map();
+
+  constructor(private auth: AuthService, private router : Router, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
     if (!this.auth.checkUserLogin()) {
@@ -25,6 +34,7 @@ export class ReportsComponent implements OnInit {
       this.chart.destroy();
     }
     this.chart = this.createAnnualChart();
+    this.loadData();
   }
 
   onYearChange(): void {
@@ -110,6 +120,7 @@ export class ReportsComponent implements OnInit {
     const yearMonthDate = new Date(this.yearMonth);
     const year = yearMonthDate.getUTCFullYear();
     const month = yearMonthDate.getUTCMonth();
+    console.log("monthly chart: " + year + ", " + month);
     const daysInMonth = this.countDaysInMonth(year, month);
     var earnings = this.getMonthlyEarnings(yearMonthDate, daysInMonth);
     var spendings = this.getMonthlySpendings(yearMonthDate, daysInMonth);
@@ -147,7 +158,159 @@ export class ReportsComponent implements OnInit {
     });
   }
 
+  isFirebaseTimestamp(timestamp: any): timestamp is { seconds: number, nanoseconds: number } {
+    return timestamp && typeof timestamp.seconds === 'number' && typeof timestamp.nanoseconds === 'number';
+  }
+
+  loadData(): void {
+    const userID = this.auth.getUserId();
+    if (!userID) {
+      console.error('User ID not available');
+      return;
+    }
+  
+    let earnings: Array<EarningTableEntry> = new Array();
+    let spendings: Array<PayingTableEntry> = new Array();
+  
+    this.firestore.collection('newEarningMoney', ref => ref.where('userID', '==', userID))
+      .snapshotChanges()
+      .subscribe(actions => {
+        earnings = actions.map(a => {
+          const data = a.payload.doc.data() as EarningTableEntry;
+          const earningId = a.payload.doc.id;
+  
+          // Convert Timestamps to Dates
+          if (data.recurrence) {
+            if (this.isFirebaseTimestamp(data.recurrence.beginDate)) {
+              data.recurrence.beginDate = new Date(data.recurrence.beginDate.seconds * 1000);
+            }
+            if (this.isFirebaseTimestamp(data.recurrence.endDate)) {
+              data.recurrence.endDate = new Date(data.recurrence.endDate.seconds * 1000);
+            }
+          }
+  
+          return { earningId, ...data };
+        });
+        earnings.forEach(earning => {
+          const year = earning.recurrence.beginDate.getUTCFullYear();
+          const month = earning.recurrence.beginDate.getUTCMonth();
+          const day = earning.recurrence.beginDate.getUTCDay();
+
+          console.log(`earning year ${year} month ${month} day ${day}`);
+
+          let key = "" + year;
+          if (!this.annualEarnings.has(key)) {
+            this.annualEarnings.set(key, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+          }
+          const earningsPerMonth = this.annualEarnings.get(key)!;
+          earningsPerMonth[month] += earning.amount;
+
+          key = "" + year + "" + month;
+          if (!this.monthlyEarnings.has(key)) {
+            const daysInMonth = this.countDaysInMonth(year, month);
+            let a = [];
+            for (var i = 0; i < daysInMonth; ++i) {
+              a.push(0);
+            }
+            this.monthlyEarnings.set(key, a);
+          }
+          const earningsPerDay = this.monthlyEarnings.get(key)!;
+          earningsPerDay[day] += earning.amount;
+        });
+        this.onReportTypeChange();
+      });
+  
+    this.firestore.collection('newPayingMoney', ref => ref.where('userID', '==', userID))
+      .snapshotChanges()
+      .subscribe(actions => {
+        spendings = actions.map(a => {
+          const data = a.payload.doc.data() as EarningTableEntry;
+          const spendingId = a.payload.doc.id;
+
+          // Convert Timestamps to Dates
+          if (data.recurrence) {
+            if (this.isFirebaseTimestamp(data.recurrence.beginDate)) {
+              data.recurrence.beginDate = new Date(data.recurrence.beginDate.seconds * 1000);
+            }
+            if (this.isFirebaseTimestamp(data.recurrence.endDate)) {
+              data.recurrence.endDate = new Date(data.recurrence.endDate.seconds * 1000);
+            }
+          }
+
+          return { spendingId, ...data };
+        });
+        spendings.forEach(spending => {
+          const year = spending.recurrence.beginDate.getUTCFullYear();
+          const month = spending.recurrence.beginDate.getUTCMonth();
+          const day = spending.recurrence.beginDate.getUTCDay();
+          console.log(`spending year ${year} month ${month} day ${day}`);
+          let key = "" + year;
+          if (!this.annualSpendings.has(key)) {
+            this.annualSpendings.set(key, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+          }
+          const spendingsPerMonth = this.annualSpendings.get(key)!;
+          spendingsPerMonth[month] += spending.amount;
+
+          key = "" + year + "" + month;
+          if (!this.monthlySpendings.has(key)) {
+            const daysInMonth = this.countDaysInMonth(year, month);
+            let a = [];
+            for (var i = 0; i < daysInMonth; ++i) {
+              a.push(0);
+            }
+            this.monthlySpendings.set(key, a);
+          }
+          const spendingsPerDay = this.monthlySpendings.get(key)!;
+          spendingsPerDay[day] += spending.amount;
+
+        });
+        this.onReportTypeChange();
+      });
+  }
+
   getAnnualEarnings(): Array<number> {
+    let result = this.annualEarnings.get(this.year);
+    if (result) {
+      return result;
+    }
+    return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  }
+
+  getAnnualSpendings(): Array<number> {
+    let result = this.annualSpendings.get(this.year);
+    if (result) {
+      return result;
+    }
+    return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  }
+
+  getMonthlyEarnings(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
+    const key = "" + yearMonth.getUTCFullYear() + "" + yearMonth.getUTCMonth();
+    const result = this.monthlyEarnings.get(key);
+    if (result) {
+      return result;
+    }
+    const a = new Array()
+    for (var i = 0; i < numberOfDaysInMonth; ++i) {
+      a.push(0);
+    }
+    return a;
+  }
+
+  getMonthlySpendings(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
+    const key = "" + yearMonth.getUTCFullYear() + "" + yearMonth.getUTCMonth();
+    const result = this.monthlySpendings.get(key);
+    if (result) {
+      return result;
+    }
+    const a = new Array()
+    for (var i = 0; i < numberOfDaysInMonth; ++i) {
+      a.push(0);
+    }
+    return a;
+  }
+
+  getAnnualEarnings2(): Array<number> {
     if (this.year == '2023') {
       return [
         11101,
@@ -212,7 +375,7 @@ export class ReportsComponent implements OnInit {
     ];
   }
 
-  getAnnualSpendings(): Array<number> {
+  getAnnualSpendings2(): Array<number> {
     if (this.year == '2023') {
       return [
         10272,
@@ -277,7 +440,7 @@ export class ReportsComponent implements OnInit {
     ];
   }
 
-  getMonthlyEarnings(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
+  getMonthlyEarnings2(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
     const result = [];
     for (var i = 0; i < numberOfDaysInMonth; ++i) {
       const earning = 100 + Math.random() * 100;
@@ -286,7 +449,7 @@ export class ReportsComponent implements OnInit {
     return result;
   }
 
-  getMonthlySpendings(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
+  getMonthlySpendings2(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
     const result = [];
     for (var i = 0; i < numberOfDaysInMonth; ++i) {
       const spending = 90 + Math.random() * 90;
