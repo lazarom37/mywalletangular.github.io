@@ -45,8 +45,6 @@ export class ReportsComponent implements OnInit {
   }
 
   onYearMonthChange(): void {
-    var date = new Date(this.yearMonth);
-    console.log(this.yearMonth + " is " + date);
     if (this.chart) {
       this.chart.destroy();
     }
@@ -117,20 +115,20 @@ export class ReportsComponent implements OnInit {
   }
 
   createMonthlyChart(): Chart {
-    const yearMonthDate = new Date(this.yearMonth);
-    const year = yearMonthDate.getUTCFullYear();
-    const month = yearMonthDate.getUTCMonth();
+    let yearAndMonth = this.yearMonth.split('-');
+    const year = Number.parseInt(yearAndMonth[0]);
+    const month = Number.parseInt(yearAndMonth[1]);
     console.log("monthly chart: " + year + ", " + month);
     const daysInMonth = this.countDaysInMonth(year, month);
-    var earnings = this.getMonthlyEarnings(yearMonthDate, daysInMonth);
-    var spendings = this.getMonthlySpendings(yearMonthDate, daysInMonth);
+    var earnings = this.getMonthlyEarnings(year, month, daysInMonth);
+    var spendings = this.getMonthlySpendings(year, month, daysInMonth);
     var balance = [];
     for (var i = 0; i < earnings.length; ++i) {
       balance.push(earnings[i] - spendings[i]);
     }
     let dateLabels = [];
     for (let day = 1; day <= daysInMonth; ++day) {
-      let dateLabel = ('' + (month + 1)).padStart(2, '0') + '/'  + ('' + day).padStart(2, '0');
+      let dateLabel = ('' + month).padStart(2, '0') + '/'  + ('' + day).padStart(2, '0');
       dateLabels.push(dateLabel);
     }
     return new Chart("BarChart", {
@@ -182,6 +180,7 @@ export class ReportsComponent implements OnInit {
           // Convert Timestamps to Dates
           if (data.recurrence) {
             if (this.isFirebaseTimestamp(data.recurrence.beginDate)) {
+              console.log("Firebase timestamp: " + JSON.stringify(data.recurrence.beginDate));
               data.recurrence.beginDate = new Date(data.recurrence.beginDate.seconds * 1000);
             }
             if (this.isFirebaseTimestamp(data.recurrence.endDate)) {
@@ -192,9 +191,9 @@ export class ReportsComponent implements OnInit {
           return { earningId, ...data };
         });
         earnings.forEach(earning => {
-          const year = earning.recurrence.beginDate.getUTCFullYear();
-          const month = earning.recurrence.beginDate.getUTCMonth();
-          const day = earning.recurrence.beginDate.getUTCDay();
+          const year = earning.recurrence.beginDate.getFullYear();
+          const month = earning.recurrence.beginDate.getMonth() + 1;
+          const day = earning.recurrence.beginDate.getDate() - 1;
 
           console.log(`earning year ${year} month ${month} day ${day}`);
 
@@ -240,9 +239,9 @@ export class ReportsComponent implements OnInit {
           return { spendingId, ...data };
         });
         spendings.forEach(spending => {
-          const year = spending.recurrence.beginDate.getUTCFullYear();
-          const month = spending.recurrence.beginDate.getUTCMonth();
-          const day = spending.recurrence.beginDate.getUTCDay();
+          const year = spending.recurrence.beginDate.getFullYear();
+          const month = spending.recurrence.beginDate.getMonth() + 1;
+          const day = spending.recurrence.beginDate.getDate() - 1;
           console.log(`spending year ${year} month ${month} day ${day}`);
           let key = "" + year;
           if (!this.annualSpendings.has(key)) {
@@ -284,8 +283,8 @@ export class ReportsComponent implements OnInit {
     return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
-  getMonthlyEarnings(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
-    const key = "" + yearMonth.getUTCFullYear() + "" + yearMonth.getUTCMonth();
+  getMonthlyEarnings(year: number, month: number, numberOfDaysInMonth: number): Array<number> {
+    const key = "" + year + "" + month;
     const result = this.monthlyEarnings.get(key);
     if (result) {
       return result;
@@ -297,8 +296,8 @@ export class ReportsComponent implements OnInit {
     return a;
   }
 
-  getMonthlySpendings(yearMonth: Date, numberOfDaysInMonth: number): Array<number> {
-    const key = "" + yearMonth.getUTCFullYear() + "" + yearMonth.getUTCMonth();
+  getMonthlySpendings(year: number, month: number, numberOfDaysInMonth: number): Array<number> {
+    const key = "" + year + "" + month;
     const result = this.monthlySpendings.get(key);
     if (result) {
       return result;

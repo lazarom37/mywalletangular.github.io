@@ -32,24 +32,25 @@ function dateToString(d: Date): string {
 }
 
 function recurrenceToString(rec: Recurrence): string {
-  var result = "";
-  if (rec.recurrenceType == RecurrenceType.OneOff) {
-    result =  "One off on " + dateToString(rec.beginDate);
-  } else if (rec.recurrenceType == RecurrenceType.Daily) {
-    result = "Daily from " + dateToString(rec.beginDate);
-  } else if (rec.recurrenceType == RecurrenceType.Weekly) {
-    result = "Weekly from " + dateToString(rec.beginDate);
-  } else if (rec.recurrenceType == RecurrenceType.Monthly) {
-    result = "Monthly from " + dateToString(rec.beginDate);
-  } else if (rec.recurrenceType == RecurrenceType.Annually) {
-    result = "Annualy from " + dateToString(rec.beginDate);
-  } else {
-    return "Unknown";
-  }
-  if (rec.endDate != null) {
-    result += " to " + dateToString(rec.endDate);
-  }
-return result;
+  return dateToString(rec.beginDate);
+  // var result = "";
+  // if (rec.recurrenceType == RecurrenceType.OneOff) {
+  //   result =  "One off on " + dateToString(rec.beginDate);
+  // } else if (rec.recurrenceType == RecurrenceType.Daily) {
+  //   result = "Daily from " + dateToString(rec.beginDate);
+  // } else if (rec.recurrenceType == RecurrenceType.Weekly) {
+  //   result = "Weekly from " + dateToString(rec.beginDate);
+  // } else if (rec.recurrenceType == RecurrenceType.Monthly) {
+  //   result = "Monthly from " + dateToString(rec.beginDate);
+  // } else if (rec.recurrenceType == RecurrenceType.Annually) {
+  //   result = "Annualy from " + dateToString(rec.beginDate);
+  // } else {
+  //   return "Unknown";
+  // }
+  // if (rec.endDate != null) {
+  //   result += " to " + dateToString(rec.endDate);
+  // }
+  // return result;
 }
 
 function stringToRecurrenceType(rec: string): RecurrenceType {
@@ -190,7 +191,8 @@ export class PaymentsComponent implements OnInit {
   
       const payingName = modalWindow.componentInstance.data.name;
       const payingAmount = modalWindow.componentInstance.data.amount;
-      const payingRecurrence = modalWindow.componentInstance.data.recurrence;
+      // const payingRecurrence = modalWindow.componentInstance.data.recurrence;
+      const payingRecurrence = "oneoff";
       const payingBeginDate = new Date(modalWindow.componentInstance.data.beginDate);
   
       // Validate input
