@@ -1,0 +1,60 @@
+.list_container {
+  border: solid #0000 2px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Horizontal offset, vertical offset, blur radius, color */
+}
+
+
+
+.list_header {
+  background: #ff7171;
+  height: 30px;
+  color: black;
+}
+
+.odd_list_line {
+  background-color: #f6bce0;
+  height: 30px;
+  color: black;
+}
+
+.even_list_line {
+  background-color: #ffffff;
+  height: 30px;
+  color: black;
+}
+
+.btn {
+  color: black;
+  background-color: #bcd3f6;
+  border: solid rgb(137, 142, 137) 2px;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 30px;
+  color: rgb(105, 79, 79);
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Horizontal offset, vertical offset, blur radius, color */
+  transition: transform 0.3s ease; /* Add transition property */
+} 
+
+.btn:hover {
+    transform: scale(1.1); /* Scales up the text size by 10% */
+} 
+
+.button-container {
+  margin: 25px;
+  position: relative;
+  
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+p {
+  text-align: left;
+  color: #ec9090;
+}
+
+

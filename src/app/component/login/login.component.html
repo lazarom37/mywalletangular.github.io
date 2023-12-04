@@ -1,0 +1,80 @@
+<!-- <p>login works!</p> -->
+<div class="centered-content">
+    <div class="container-fluid component_defaults">
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card-shadow">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <h4 class = "text-white" id="login">Login</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <!-- Login Form Content -->
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" name = "email" [(ngModel)] = "email">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name = "password" [(ngModel)] = "password">
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-6">
+                                              <button type="button" class="btn" (click)= "login()">Login</button>
+                                          </div>
+                                          <div class="col-6">
+                                              <button type="button" class="btn" (click)= "loginWithGoogle()">Login with Google <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" alt="GoogleIcon" class="small-image"></button>
+                                          </div>
+                                      </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                                <!-- Square Content -->
+                                                <img src="https://64.media.tumblr.com/b73560caa55f52cd1ef25875748d052a/tumblr_mfqeb5iNG01rfjowdo1_500.gif" alt="Money" class="animated-image01">
+
+                                                <img src="/assets/bank01.png" alt="Bank" class="bank">
+                                                <img src="/assets/wallet02.png" alt="wallet" class="wallet">
+                                                <img src="/assets/safe03.png" alt="safe" class="safe">
+                                                <img src="/assets/graph.png" alt="chart" class="chart">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="newEra">
+                                                <!-- newEra Content -->
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <a href="/register" class="text" style = "text-decoration: none;">Need Account? Register!</a>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <a href="/forgotpassword" class = "text" style = "text-decoration: none;">Forgot Password ?</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-left-text">
+            <h4>
+                    <!-- My Wallet is an application for anyone of any age and occupation 
+                    to manage their finances.  -->
+
+                    My Wallet is your own personal finance account to keep track of your money, with no bank account registration required.
+                    
+                    <!-- Users will manually enter their earnings and spendings and see immediate balance 
+                    changes. For users’ convenience, there will be two separate pages to manage their one-off and recurrent earnings
+                     and spendings. There will also be a report page where they can see analytics about their earnings and spendings
+                      for a period of time. My Wallet will have easy, intuitive navigation and user-friendly UI. We will store customer 
+                      data in Firebase. Please see further slides for more information about the targeted audience and functionality. -->
+            </h4>
+        </div>
+    </div>
+</div>

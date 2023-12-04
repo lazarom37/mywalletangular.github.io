@@ -1,0 +1,200 @@
+@media (max-width: 768px) {
+    .form-control, .btn {
+        width: 100%; /* Full width on smaller screens */
+    }
+    .row {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+}
+
+.container-fluid {
+    position: relative;
+}
+
+.newEra {
+    position: absolute;
+    right: 50px;
+    top: 50px; /* Adjust as needed */
+    text-align: right; 
+}
+
+h4 {
+    font-size: 20px;
+    font-stretch: 20px;
+}
+
+.bottom-left-text {
+    position: absolute;
+    bottom: 400px;
+    left: 50px;
+    width: 600px; /* Adjust the width as needed */
+    margin: 10px; /* Add some space around the text */
+    color: #fff; /* Assuming you want white text */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: for better readability */
+    padding: 20px; /* Optional: for better spacing */
+    box-sizing: border-box; /* To include padding in the width */
+}
+
+/* .bottom-left-text:hover {
+    transform: scale(1.1); /* Scales up the text size by 10% */
+    /* transition: transform 0.3s ease; Smooth transition for the scaling effect */
+/* }  */
+
+
+.text-white{
+    font-size: larger;
+    color: #bcd3f6;
+}
+.row {
+    display: flex;
+    justify-content: space-between; /* Evenly space items */
+    align-items: center; /* Vertically align items */
+}
+
+.btn {
+    background-color: #bcd3f6;
+    /* width: 5%;  */
+    padding: 10px; 
+    margin-bottom: 15px; 
+    transition: transform 0.3s ease; /* Add transition property */
+    color: black;
+} 
+
+.btn:hover {
+    transform: scale(1.1); /* Scales up the text size by 10% */
+} 
+
+
+
+.centered-content {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: venter; /* Center vertically */
+    height: 100vh; /* Full height of the viewport */
+}
+
+.small-image {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle; /* Align icon with text */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+.btn-info :focus {
+    background-color: #9fa4a9;
+}
+/* .row {
+    height: auto;
+    color: #723e3e;
+} */
+.text {
+    color: #dde5f1;
+}
+
+.form-control {
+    width: 70%; /* Default width */
+    height: 40px; /* Default height */
+    padding: 6px 12px; /* Default padding */
+    transition: all 0.3s ease; /* Transition for smooth size change */
+    margin-bottom: 15px;
+}
+
+/* Style for form control when focused */
+.form-control:focus {
+    width: 80%; /* Increased width */
+    height: 45px; /* Increased height */
+    padding: 10px 14px; /* Increased padding */
+    margin-bottom: 15px;
+}
+
+/* #login {
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    left: 35%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+} */
+
+#login {
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center; /* Center the title */
+    color: #bcd3f6;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* .square {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    animation-name: example;
+    animation-duration: 4s;
+    margin-bottom: 10px;
+  }
+
+  @keyframes example {
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+  } */
+
+  .animated-image01 {
+    width: 100px; /* Example width */
+    height: auto; /* Keep aspect ratio */
+    position: relative; /* Needed for positioning in animation */
+    animation-name: imageAnimation;
+    animation-duration: 4s;
+    animation-iteration-count: infinite; /* Loop the animation */
+    z-index: 10;
+  }
+
+  .safe, .wallet, .bank{
+    width: 100px; /* Example width */
+    height: auto; /* Keep aspect ratio */
+    position: absolute; /* Absolute positioning */
+    z-index: 1;
+  }
+
+  .chart {
+    width: 95px; /* Example width */
+    height: auto; /* Keep aspect ratio */
+    position: absolute; /* Absolute positioning */
+    z-index: 1;
+  }
+  
+  .safe {
+    /* top: 0; Position at the top */
+    right: 420px; 
+    Position: -200px 
+  }
+  
+  .wallet {
+    /* top: 200px; Position 200px down */
+    right: 420px; /* Position 200px to the right */
+    bottom: 550px;
+  }
+  
+  .bank {
+    /* top: 200px; Position 200px down */
+    left: 1500px; /* Position 200px to the right */
+    bottom: 770px;
+  }
+
+  .chart {
+    left: 1500px; /* Position 200px to the right */
+    bottom: 510px;
+  }
+  
+  @keyframes imageAnimation {
+    0%   { transform: translate(0px, 0px); }
+    25%  { transform: translate(200px, 0px); }
+    50%  { transform: translate(200px, 200px); }
+    75%  { transform: translate(0px, 200px); }
+    100% { transform: translate(0px, 0px); }
+  }

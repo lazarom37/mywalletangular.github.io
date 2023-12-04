@@ -1,0 +1,81 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$md-mcgpalette0: (
+    50 : #edf5ea,
+    100 : #d2e5ca,
+    200 : #b5d4a7,
+    300 : #97c284,
+    400 : #80b569,
+    500 : #6aa84f,
+    600 : #62a048,
+    700 : #57973f,
+    800 : #4d8d36,
+    900 : #3c7d26,
+    A100 : #cdffbe,
+    A200 : #a6ff8b,
+    A400 : #7fff58,
+    A700 : #6cff3f,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$firebase-angular-crud-primary: mat.define-palette(mat.$indigo-palette);
+$firebase-angular-crud-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$firebase-angular-crud-green: mat.define-palette(mat.$green-palette);
+$firebase-angular-crud-teal: mat.define-palette(mat.$teal-palette);
+$firebase-angular-crud-cyan: mat.define-palette(mat.$cyan-palette, A200, A100, A400);
+$firebase-angular-crud-deep-purple: mat.define-palette(mat.$deep-purple-palette, A200, A100, A400);
+
+
+// The warn palette is optional (defaults to red).
+$firebase-angular-crud-warn: mat.define-palette(mat.$red-palette);
+
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$firebase-angular-crud-theme: mat.define-light-theme((
+  color: (
+    primary: $firebase-angular-crud-primary,
+    accent: $firebase-angular-crud-accent,
+    warn: $firebase-angular-crud-warn,
+    green: $firebase-angular-crud-green,
+    teal: $firebase-angular-crud-teal,
+    cyan: $firebase-angular-crud-cyan,
+    deep-purple: $firebase-angular-crud-deep-purple,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($firebase-angular-crud-theme);
+
+
+

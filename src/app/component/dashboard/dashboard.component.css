@@ -1,0 +1,46 @@
+h4 {
+  font-size: 20px;
+  padding: 10px;
+  line-height: 1.5; /* Adjusts the space between lines */
+}
+
+.bottom-left-text {
+  position: absolute;
+  bottom: 300px;
+  left: 50px;
+  width: 600px; /* Adjust the width as needed */
+  margin: 10px; /* Add some space around the text */
+  color: #fff; /* Assuming you want white text */
+  background-color: rgba(0, 0, 0, 0.5); /* For better readability */
+  padding: 20px; /* For better spacing */
+  box-sizing: border-box; /* To include padding in the width */
+}
+
+video {
+  width: 1320px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.video-container {
+  position: absolute; /* Absolute positioning relative to the closest positioned ancestor */
+  right: 900px; /* Align to the right edge of the screen */
+  top: 50%; /* Optional: Adjusts vertical position */
+  transform: translateY(-50%); /* Optional: Centers the container vertically */
+  width: 720px; /* Adjust the width as needed */
+  height: auto; /* Adjust height as needed */
+  z-index: 10; /* Ensures it's on top of other elements, adjust as needed */
+}
+
+
+.safe {
+  /* top: 0; Position at the top */
+  left: 500px; 
+  bottom: 610px; 
+}
+
+.safe, .wallet, .bank{
+  width: 100px; /* Example width */
+  height: auto; /* Keep aspect ratio */
+  position: absolute; /* Absolute positioning */
+  z-index: 1;
+}
